@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopX - Plateforme E-commerce</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Scripts externes -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>ShopX</h1>
+            </div>
+            <div class="nav-links">
+                <button id="home-btn">Accueil</button>
+                <button id="buyer-btn">Acheter</button>
+                <button id="seller-btn">Vendre</button>
+                <button id="admin-btn">Admin</button>
+            </div>
+            <div class="nav-actions">
+                <button id="lang-fr">FR</button>
+                <button id="lang-en">EN</button>
+                <button id="view-wishlist">
+                    <i class="far fa-heart"></i>
+                    <span id="wishlist-count">0</span>
+                </button>
+                <button id="view-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conteneur d'authentification -->
+    <div id="auth-container" class="auth-container"></div>
+
+    <!-- Section principale -->
+    <main>
+        <!-- Accueil -->
+        <section id="home" class="section">
+            <h2>Bienvenue sur ShopX</h2>
+            <p>Une plateforme innovante pour acheter et vendre en toute simplicité.</p>
+            
+            <!-- Promotions -->
+            <div id="promo-section">
+                <h3>Promotions en cours</h3>
+                <div id="promo-list" class="product-grid"></div>
+            </div>
+        </section>
+
+        <!-- Espace Acheteur -->
+        <section id="buyer" class="section hidden">
+            <h2>Espace Acheteur</h2>
+            
+            <!-- Recherche et filtres -->
+            <div class="search-filters">
+                <input type="text" id="search" placeholder="Rechercher un produit...">
+                <select id="filter-category">
+                    <option value="">Toutes catégories</option>
+                    <option value="Électronique">Électronique</option>
+                    <option value="Mode">Mode</option>
+                    <option value="Maison">Maison</option>
+                </select>
+                <select id="filter-price">
+                    <option value="">Tous les prix</option>
+                    <option value="0-5000">0 - 5000 FCFA</option>
+                    <option value="5000-20000">5000 - 20000 FCFA</option>
+                    <option value="20000-50000">20000 - 50000 FCFA</option>
+                    <option value="50000-100000">50000+ FCFA</option>
+                </select>
+                <button id="search-btn">Rechercher</button>
+            </div>
+
+            <!-- Liste des produits -->
+            <div id="product-list" class="product-grid"></div>
+
+            <!-- Conteneur des avis -->
+            <div id="reviews-container"></div>
+        </section>
+
+        <!-- Espace Vendeur -->
+        <section id="seller" class="section hidden">
+            <h2>Espace Vendeur</h2>
+            
+            <!-- Formulaire d'inscription vendeur -->
+            <form id="seller-signup" class="auth-form">
+                <h3>Inscription Vendeur</h3>
+                <input type="text" id="seller-name" placeholder="Nom" required>
+                <input type="email" id="seller-email" placeholder="Email" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+
+            <!-- Tableau de bord vendeur -->
+            <div id="seller-dashboard" class="hidden"></div>
+
+            <!-- Formulaire d'ajout de produit -->
+            <form id="add-product-form" class="hidden">
+                <h3>Ajouter un produit</h3>
+                <input type="text" id="product-name" placeholder="Nom du produit" required>
+                <input type="number" id="product-price" placeholder="Prix" required>
+                <select id="product-category" required>
+                    <option value="">Sélectionner une catégorie</option>
+                    <option value="Électronique">Électronique</option>
+                    <option value="Mode">Mode</option>
+                    <option value="Maison">Maison</option>
+                </select>
+                <textarea id="product-desc" placeholder="Description" required></textarea>
+                <input type="number" id="product-stock" placeholder="Stock" required>
+                <input type="number" id="promo-discount" placeholder="Promotion (%)" min="0" max="100">
+                <button type="submit">Ajouter</button>
+            </form>
+        </section>
+
+        <!-- Espace Admin -->
+        <section id="admin" class="section hidden">
+            <h2>Espace Admin</h2>
+            
+            <!-- Vendeurs en attente -->
+            <div class="admin-section">
+                <h3>Vendeurs en attente</h3>
+                <div id="pending-sellers"></div>
+            </div>
+
+            <!-- Produits en attente -->
+            <div class="admin-section">
+                <h3>Produits en attente</h3>
+                <div id="pending-products"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Panier -->
+    <div id="cart-container" class="cart-container"></div>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>ShopX est votre marketplace de confiance pour acheter et vendre en toute simplicité.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens utiles</h3>
+                <ul>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Centre d'aide</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@shopx.com</p>
+                <p>Téléphone: +123 456 789</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShopX. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Script principal -->
+    <script src="assets/js/JAVASCRIPT.js"></script>
+</body>
+</html> 
