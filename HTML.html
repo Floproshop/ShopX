@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopX - La Marketplace du Futur</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ShopX</h1>
+        <div class="lang-switch">
+            <button id="lang-fr">Français</button>
+            <button id="lang-en">English</button>
+        </div>
+        <nav>
+            <button id="home-btn">Accueil</button>
+            <button id="buyer-btn">Acheteur</button>
+            <button id="seller-btn">Vendeur</button>
+            <button id="admin-btn">Admin</button>
+        </nav>
+    </header>
+
+    <!-- Accueil -->
+    <section id="home" class="section">
+        <h2>Bienvenue sur ShopX</h2>
+        <p>Une plateforme innovante pour acheter et vendre en toute simplicité.</p>
+        <div id="promo-section">
+            <h3>Promotions en cours</h3>
+            <div id="promo-list"></div>
+        </div>
+    </section>
+
+    <!-- Espace Acheteur -->
+    <section id="buyer" class="section hidden">
+        <h2>Espace Acheteur</h2>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Rechercher un produit...">
+            <select id="filter-category">
+                <option value="">Catégorie</option>
+                <option value="Électronique">Électronique</option>
+                <option value="Mode">Mode</option>
+            </select>
+            <select id="filter-price">
+                <option value="">Prix</option>
+                <option value="0-5000">0-5000 FCFA</option>
+                <option value="5000-10000">5000-10000 FCFA</option>
+            </select>
+            <button id="search-btn">Rechercher</button>
+        </div>
+        <div id="product-list"></div>
+        <div id="buyer-personal">
+            <h3>Votre espace</h3>
+            <p>Commandes en cours : <span id="orders">0</span></p>
+            <p>Liste de souhaits : <span id="wishlist-count">0</span></p>
+            <button class="action-btn" id="view-wishlist">Voir liste</button>
+        </div>
+    </section>
+
+    <!-- Espace Vendeur -->
+    <section id="seller" class="section hidden">
+        <h2>Espace Vendeur</h2>
+        <form id="seller-signup" class="hidden">
+            <h3>Inscription Vendeur</h3>
+            <input type="text" id="seller-name" placeholder="Nom" required>
+            <input type="email" id="seller-email" placeholder="Email" required>
+            <button type="submit" class="action-btn">S'inscrire (500 FCFA/mois)</button>
+        </form>
+        <div id="seller-dashboard" class="hidden">
+            <h3>Tableau de bord</h3>
+            <button id="add-product-btn" class="action-btn">Ajouter un produit</button>
+            <form id="add-product-form" class="hidden">
+                <input type="text" id="product-name" placeholder="Nom du produit" required>
+                <input type="number" id="product-price" placeholder="Prix (FCFA)" required>
+                <input type="text" id="product-category" placeholder="Catégorie" required>
+                <textarea id="product-desc" placeholder="Description" required></textarea>
+                <input type="number" id="product-stock" placeholder="Stock" required>
+                <input type="number" id="promo-discount" placeholder="Réduction (%)" min="0" max="100">
+                <button type="submit" class="action-btn">Ajouter</button>
+            </form>
+            <div id="seller-products"></div>
+        </div>
+    </section>
+
+    <!-- Espace Admin -->
+    <section id="admin" class="section hidden">
+        <h2>Espace Admin</h2>
+        <div>
+            <h3>Vendeurs en attente</h3>
+            <div id="pending-sellers"></div>
+        </div>
+        <div>
+            <h3>Produits à modérer</h3>
+            <div id="pending-products"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 ShopX - Une plateforme sécurisée et équitable</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
